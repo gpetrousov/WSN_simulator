@@ -22,10 +22,10 @@ __status__ = "early alpha"
 #### Global variables ####
 MOTES_ARRAY = [] #contains all the mote objects
 
-EVENT_LIST = []
+EVENT_LIST = [[],[],[]]
 #2D array                       [columns]
 #           --------------------------...
-#           |event name        | | | |...
+#           |event name - ID   | | | |...
 #  [rows]   |time              | | | |...
 #           |#moteID or nodeID | | | |...
 #           --------------------------...
@@ -56,7 +56,10 @@ class Node():
 
 
 class Mote():
-    """Class for the mote sensors"""
+    """
+    Class for the mote sensors
+    INPUT: mote identifier, it's row in MOTES_ARRAY, it's column in MOTES_ARRAY
+    """
     def __init__(self, moteID, row, column):
         self.moteID = 'mote%s' % moteID
         self.locationR =  int(row) #row in the MOTES_ARRAY
@@ -81,12 +84,9 @@ class Channel():
 
 
 
-
-
-
 #### Functions ####
 def initialize_motes():
-    """Create the mote objects and append them to the MOTES_ARRAY"""
+    """Create the mote objects and append them to MOTES_ARRAY"""
     for i in xrange(10):
         MOTES_ARRAY.append([])
         for j in xrange(100):
@@ -94,7 +94,10 @@ def initialize_motes():
             MOTES_ARRAY[i].append(Mote('%s%s'%(i,j), i, j))
             #print 'Created mote %s ' %(MOTES_ARRAY[i].moteID)
 
+
+
 def initialize_lookup_tables():
+    pass
 
 
 
@@ -103,15 +106,35 @@ def initialize_event_list():
     """Initialize the EVENT_LIST with the initial values for the events, times and mote-node IDs"""
     #first row
     for event_name in xrange(1000):
-        EVENT_LIST.append()
+        EVENT_LIST[0].append()
+
     for event_time in xrange(1000):
-        pass
+        EVENT_LIST[1].append()
+
     for mote_id int xrange(1000):
-        pass
+        EVENT_LIST[2].append()
+
+
+
+
+def sortrows(lista, row_number):
+    """
+    Sort all the rows of the given list according to a given row.
+    Emulates the functionality of matlabs sortrows() function.
+    Input: list, row number, based on which the sorting will be made
+    Output: sorted list
+    Did not wanted to use numpy.
+    """
+    lista = zip(*lista) #make list of tupples
+    lista.sort(key = lambda x: x[row_number]) #set the row to which you want to sort the list
+    lista = zip(*lista) #make a list of lists
+    return lista
+
     
 
 
 def wsn_main():
+    """Main function that loops over the event list and calls the events themselves"""
     pass
 
 
