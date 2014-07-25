@@ -7,7 +7,13 @@ Properties:
     - Once the node enters the area, it starts receiving data from the motes
     - The network reorganizes as the node croses the area
     - Time is measured in seconds
+For more details see the readme file.
     """
+
+import global_vars
+import classes
+import functions
+import events
 
 __author__ = "Giannis Petrousov"
 __copyright__ = "Copyright 2014"
@@ -19,135 +25,52 @@ __status__ = "early alpha"
 
 
 
-#### Global variables ####
-MOTES_ARRAY = [] #contains all the mote objects
 
-EVENT_LIST = [[],[],[]]
-#2D array                       [columns]
-#           --------------------------...
-#           |event name - ID   | | | |...
-#  [rows]   |time              | | | |...
-#           |#moteID or nodeID | | | |...
-#           --------------------------...
-
-NUMBER_OF_MOTES = 1000
-NUMBER_OF_NODES = 1
-BANDWIDTH = 250 * 1024 #bps
-
-#packet sizes#
-ACK_PACKET_SIZE = 1 #bytes; confirmation package
-DATA_PACKET_SIZE = 4 #bytes
-ECHO_PACKET_SIZE = 1 #bytes; "Hello neighbor, add me to your lookup table"
-
-#time intervals#
-DATA_INTERVAL_TIME = 60 #seconds, every 60 seconds motes will generate data
-PRESENCE_ENTRY_INTERVAL = 6 #seconds, every 6 seconds node will emmit presence entry packet
-
-
-
-#### Classes ####
-class Node():
-    """Class for the node"""
-    def __init__(self):
-        self.locationX = -1
-        self.locationY = -1
-        self.channel = Channel(str(1001))
-
-
-
-class Mote():
-    """
-    Class for the mote sensors
-    INPUT: mote identifier, it's row in MOTES_ARRAY, it's column in MOTES_ARRAY
-    """
-    def __init__(self, moteID, row, column):
-        self.moteID = 'mote%s' % moteID
-        self.locationR =  int(row) #row in the MOTES_ARRAY
-        self.locationC =  int(column) #column in the MOTES_ARRAY
-
-        #real coordinates of the mote
-        #Index location : upper left corner
-        self.positionX = (self.locationC +1) * 100
-        self.positionY = (self.locationR + 1) * 100
-
-        self.neighbors = [] #lookup table
-        self.parent = str() #where the mote forwards it's data
-        self.channel = Channel(moteID)
-
-
-
-class Channel():
-    """Class for the channels in the network"""
-    def __init__(self, channelID):
-        self.channelID = 'channel%s' % channelID
-        self.occupied = False
-
-
-
-#### Functions ####
-def initialize_motes():
-    """Create the mote objects and append them to MOTES_ARRAY"""
-    for i in xrange(10):
-        MOTES_ARRAY.append([])
-        for j in xrange(100):
-            #create motes
-            MOTES_ARRAY[i].append(Mote('%s%s'%(i,j), i, j))
-            #print 'Created mote %s ' %(MOTES_ARRAY[i].moteID)
-
-
-
-def initialize_lookup_tables():
-    pass
-
-
-
-
-def initialize_event_list():
-    """Initialize the EVENT_LIST with the initial values for the events, times and mote-node IDs"""
-    #first row
-    for event_name in xrange(1000):
-        EVENT_LIST[0].append()
-
-    for event_time in xrange(1000):
-        EVENT_LIST[1].append()
-
-    for mote_id int xrange(1000):
-        EVENT_LIST[2].append()
-
-
-
-
-def sortrows(lista, row_number):
-    """
-    Sort all the rows of the given list according to a given row.
-    Emulates the functionality of matlabs sortrows() function.
-    Input: list, row number, based on which the sorting will be made
-    Output: sorted list
-    Did not wanted to use numpy.
-    """
-    lista = zip(*lista) #make list of tupples
-    lista.sort(key = lambda x: x[row_number]) #set the row to which you want to sort the list
-    lista = zip(*lista) #make a list of lists
-    return lista
-
-    
 
 
 def wsn_main():
     """Main function that loops over the event list and calls the events themselves"""
-    pass
+
+###########################################
+    while True:
+        if global_vars.EVENT_LIST[0] == 0:
+            #assign random time
+            pass
+
+        if global_vars.EVENT_LIST[0] == 1:
+            #send echo
+            pass
+
+        if global_vars.EVENT_LIST[0] == 2:
+            #send package
+            pass
 
 
 
 
+
+        if global_vars.EVENT_LIST[0] == 10:
+            #terminate
+            pass
+
+        #sort the the event list
+        #dont fucking worry about the simulation time now
+        global_vars.EVENT_LIST = functions.sortrows(global_vars.EVENT_LIST, 1)
+
+    #pass
+###############################################
+    return
 
 
 
 
 ########### INIT ###########
 if __name__ == '__main__':
-    initialize_motes()
-    node = Node()
+
+    #preProcessing stage
+    functions.initialize_motes()
+    node = classes.Node()
+    functions.initialize_event_list()
 
     #debug statements
     """ 
