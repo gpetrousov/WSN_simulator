@@ -43,7 +43,7 @@ def initialize_event_list():
 
     #Termination event
     global_vars.EVENT_LIST[0].append(10)
-    global_vars.EVENT_LIST[1].append(simulation_time)
+    global_vars.EVENT_LIST[1].append(global_vars.SIM_TIME)
     global_vars.EVENT_LIST[2].append(-1)
     return
 
