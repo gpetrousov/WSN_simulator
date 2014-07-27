@@ -70,9 +70,9 @@ def wsn_main():
 ########### INIT ###########
 if __name__ == '__main__':
 
-    #preProcessing stage
     functions.initialize_motes()
-    node = classes.Node()
+    functions.initialize_nodes()
+    functions.initialize_channels()
     functions.initialize_event_list()
 
     #debug statements

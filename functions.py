@@ -1,6 +1,5 @@
 import global_vars
 import classes
-import functions
 
 #### Functions ####
 
@@ -12,11 +11,18 @@ def initialize_motes():
             #create motes
             global_vars.MOTES_ARRAY[i].append(classes.Mote(';%s;%s'%(i,j), i, j))
             #print 'Created mote %s ' %(MOTES_ARRAY[i].moteID)
+    return
+
+def initialize_channels():
+    """Create the channel objects"""
+    global_vars.CHANNEL_ARRAY.append(classes.Channel(0))
+    return
 
 
-
-def initialize_lookup_tables():
-    pass
+def initialize_nodes():
+    """Create the node objects"""
+    global_vars.NODES_ARRAY.append(classes.Node())
+    return
 
 
 
