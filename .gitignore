@@ -1,0 +1,6 @@
+*.pyc
+.env
+temp
+*.pdf
+.git
+*.swp
