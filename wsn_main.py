@@ -31,6 +31,30 @@ __status__ = "early alpha"
 def wsn_main():
     """Main function that loops over the event list and calls the events themselves"""
 
+    echoed_nodes = 0
+
+    while echoed_nodes < 1000:
+    #Initially take some time for the motes to meet eachother and populate lookup tables
+    #Reschedule delay and cca until echoed
+        if global_vars.EVENT_LIST[0][0] == 0:
+            #0 = Take random time
+            events.assign_random_wait_time()
+            #pass
+        if global_vars.EVENT_LIST[0][0] == 1:
+            #1 = Perform CCA-Clear Channel Assesment
+            events.cca()
+        if global_vars.EVENT_LIST[0][0] == 2:
+            #2 = Send echo
+            events.echo()
+            echoed_nodes += 1
+            #pass
+#When the loop above finishes, all motes know their neigbors == lookup tables update
+
+    global_vars.EVENT_LIST
+
+#node enters here
+
+
 ###########################################
     while True:
         if global_vars.EVENT_LIST[0][0] == 0:

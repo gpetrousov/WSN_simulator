@@ -33,3 +33,5 @@ SIM_TIME = 0 #user input, maximum simulation time
 CHANNEL_ARRAY = []#contains all the available channels, max 16 for 802.15.4
 
 NODES_ARRAY = []#contains all the nodes that will enter the motes area
+
+HEADER_SIZE = 8 #bytes. Header size for 10 bits addressing.

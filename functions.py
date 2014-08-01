@@ -55,6 +55,16 @@ def initialize_event_list():
 
 
 
+def calculate_transmission_delay(packet_size):
+    """Calculates the transmission delay by which the channel will be occupied. This function works for 10 bit addressing.
+    INPUT: size of the packet to send in bytes
+    OUTPUT: transmission time in seconds
+    """
+    transmission_delay = (global_vars.HEADER_SIZE + packet_size) * (32 / 1000000.0)
+    return transmission_delay
+
+
+
 
 def sortrows(lista, row_number):
     """

@@ -22,6 +22,8 @@ class Mote():
         self.moteID = 'mote%s' % moteID
         self.locationR =  int(row) #row in the MOTES_ARRAY
         self.locationC =  int(column) #column in the MOTES_ARRAY
+        self.payload = False #no payload to send
+        self.echo = True #initially echo must be sent
 
         #real coordinates of the mote
         #Index location : upper left corner
@@ -37,7 +39,8 @@ class Mote():
 class Channel():
     """Class for the channels in the network"""
     def __init__(self, channelID):
-        self.channelID = 'channel%s' % channelID
+        self.channelID = 'channel%d' % channelID
         self.occupied = False
+        self.release_time = 0
 
 

@@ -8,10 +8,17 @@ from random import random
 1 = Perform CCA-Clear Channel Assesment
 2 = Send echo
 3 = Send package
+4 = update lookup tables
 10 = Termination event
 """
 
 
+######
+#    #
+#    #
+#    #
+#    #
+######
 def assign_random_wait_time():
     """Event 0: perform random delay and after random delay perform CCA.
     0 : (2^BE - 1) * 0.320 ms
@@ -32,8 +39,13 @@ def assign_random_wait_time():
 
     return
 
-
-
+   ##
+  ###
+ ####
+#####
+   ##
+   ##
+########
 def cca():
     """The mote checks if the channel is clear to send data.
     This operation lasts 0.000128 seconds.
@@ -69,11 +81,72 @@ def cca():
 
 
 
+
+#######
+     ##
+     ##
+     ##
+#######
+##
+##
+##
+#######
 def echo():
+    """Updates the channel release time according to the time it takes to transmit 1 Byte. Schedules the update lookup tables event (4) to update the neighboring motes."""
     current_time  = global_vars.EVENT_LIST[1][0]
-    global_vars.CHANNEL_ARRAY[0].
+    global_vars.CHANNEL_ARRAY[0].release_time = current_time + functions.calculate_transmission_delay(1)
+
+######
+####Let's see hwo this goes.
+###Event 4 might be useless to pefrorm.
+##
+    #global_vars.EVENT_LIST[0].append(4)
+    #global_vars.EVENT_LIST[1].append(global_vars.CHANNEL_ARRAY[0].release_time)
+    #global_vars.EVENT_LIST[2].append(global_vars.EVENT_LIST[2][0])
     return
 
 
+########
+      ##
+      ##
+      ##
+########
+      ##
+      ##
+      ##
+########
 def send_payload():
     return
+
+
+
+
+
+
+
+
+
+###########################
+####################  USELESS EVENTS BELOW
+
+
+
+##########                          #########
+#######                             #######
+######Perhaps we can skip this event######
+####                                ########
+#####                               ############
+##################################################
+def update_lookup_tables():
+    """This is a supplementary event for the echo event.
+    This event updates the lookup tables of a maximum 8 neighbor motes.
+    """
+    sender_row = int( global_vars.EVENT_LIST[2][0].split()[1] )
+    sender_col = int( global_vars.EVENT_LIST[2][0].split()[2] ) 
+    #update neighbors
+
+
+    return
+##########################################################
+
+
