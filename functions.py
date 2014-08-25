@@ -77,5 +77,8 @@ def sortrows(lista, row_number):
     lista = zip(*lista) #make list of tupples
     lista.sort(key = lambda x: x[row_number]) #set the row to which you want to sort the list
     lista = zip(*lista) #make a list of lists
+    lista[0] = list(lista[0])
+    lista[1] = list(lista[1])
+    lista[2] = list(lista[2])
     return lista
 

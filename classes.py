@@ -7,8 +7,9 @@ import functions
 class Node():
     """Class for the node"""
     def __init__(self):
-        self.locationX = -1
-        self.locationY = -1
+        self.current_row = -1
+        self.current_col = -1
+        self.heading = ''
         #self.channel = Channel(str(1001))
 
 
@@ -30,6 +31,7 @@ class Mote():
         self.positionX = (self.locationC +1) * 100
         self.positionY = (self.locationR + 1) * 100
 
+        self.gateway = False
         self.neighbors = [] #lookup table
         self.parent = str() #where the mote forwards it's data
         #self.channel = Channel(moteID)
