@@ -11,6 +11,9 @@ class Node():
         self.current_col = -1
         self.heading = ''
         #self.channel = Channel(str(1001))
+        self.packets_sent = 0
+        self.packets_received = 0
+        self.log = []
 
 
 
@@ -36,7 +39,12 @@ class Mote():
         self.parent = str() #where the mote forwards it's data
         #self.channel = Channel(moteID)
 
+        self.cca_once = 0                                        ## 
+        #0: cca has not been set for this random node entry ##
+        #1: cca has been set for this random node entry     ##
 
+        self.packets_sent = 0
+        self.packets_received = 0
 
 class Channel():
     """Class for the channels in the network"""

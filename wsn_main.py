@@ -2,7 +2,7 @@
 Properties:
     - The area is 10km^2
     - The network consists of 1000 motes-sensors, cloud A
-    - The motes a uniformly spread
+    - The motes are uniformly spread
     - One node (Cloud B) enters the area and croses it at a given speed
     - Once the node enters the area, it starts receiving data from the motes
     - The network reorganizes as the node croses the area
@@ -21,7 +21,7 @@ __credits__ = ["Giannis Petrousov"]
 __license__ = "The MIT License"
 __maintainer__ = "Giannis Petrousov"
 __email__ = "petrousov@gmail"
-__status__ = "early alpha"
+__status__ = "beta"
 
 
 
@@ -31,6 +31,12 @@ __status__ = "early alpha"
 def wsn_main():
     """Main function that loops over the event list and calls the events themselves"""
 
+    functions.initialize_motes()
+    functions.initialize_nodes()
+    functions.initialize_channels()
+    functions.initialize_event_list()
+
+###########################ECHO-MEETING STEP###################################
     echoed_nodes = 0
 
     while echoed_nodes < 1000:
@@ -59,7 +65,7 @@ def wsn_main():
         #global_vars.EVENT_LIST[2] = list(global_vars.EVENT_LIST[2])
             #pass
 #When the loop above finishes, all motes know their neigbors == lookup tables updated
-
+###############################################################################
 
 #node enters here
     global_vars.EVENT_LIST[0].append(5)
@@ -67,17 +73,13 @@ def wsn_main():
     global_vars.EVENT_LIST[2].append('node0')
     global_vars.EVENT_LIST = functions.sortrows(global_vars.EVENT_LIST, 1)
 
-##### initiate payload generation for all motes #####
-    global_vars.EVENT_LIST[0].append()
-    global_vars.EVENT_LIST[1].append()
-    global_vars.EVENT_LIST[2].append()
-
-
 ####################### DEBUG TILL HERE ; ALL GOOD ##############
 
 
 ###########################################
     while True:
+        current_time = global_vars.EVENT_LIST[1][0] #for debugging purposes
+        print current_time
         if global_vars.EVENT_LIST[0][0] == 0:
             #delay by random time
             events.assign_random_wait_time()
@@ -109,7 +111,7 @@ def wsn_main():
         if global_vars.EVENT_LIST[0][0] == 9:
             pass
 
-        if global_vars.EVENT_LIST[0] == 10:
+        if global_vars.EVENT_LIST[0][0] == 10:
             #terminate
             break
 
@@ -122,27 +124,5 @@ def wsn_main():
 
     #pass
 ###############################################
+    functions.write_simulation_results_to_file()
     return
-
-
-
-
-########### INIT ###########
-if __name__ == '__main__':
-
-    functions.initialize_motes()
-    functions.initialize_nodes()
-    functions.initialize_channels()
-    functions.initialize_event_list()
-
-    #debug statements
-    """ 
-    for i in xrange(10):
-        for j in xrange(100):
-            print '%s, location: %d,%d, coordinates: %d,%d' %(MOTES_ARRAY[i][j].moteID, MOTES_ARRAY[i][j].locationR, MOTES_ARRAY[i][j].locationC, MOTES_ARRAY[i][j].positionY, MOTES_ARRAY[i][j].positionX)
-            print ' '
-
-    print 'initialized node and channel %s' % node.channel.channelID 
-    """
-
-    wsn_main()

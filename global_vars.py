@@ -5,13 +5,14 @@ MOTES_ARRAY = [] #contains all the mote objects
 
 CCA_TIME = 0.0000128 # cca takes 0.128ms
 
+
 EVENT_LIST = [[],[],[]]
 #2D array                       [columns]
-#           --------------------------...
+#           -----------------------------
 #           |event name - ID   | | | |...
 #  [rows]   |time              | | | |...
 #           |#moteID or nodeID | | | |...
-#           --------------------------...
+#           -----------------------------
 
 NUMBER_OF_MOTES = 1000
 NUMBER_OF_NODES = 1
@@ -28,7 +29,7 @@ PRESENCE_ENTRY_INTERVAL = 6 #seconds, every 6 seconds node will emmit presence e
 
 RN = 0 #is default 0; it is a user-settable parameter for random delay on the XBee 802.15.4
 
-SIM_TIME = 100000 #user input, maximum simulation time
+SIM_TIME = 200 #user input, maximum simulation time
 
 CHANNEL_ARRAY = []#contains all the available channels, max 16 for 802.15.4
 
@@ -41,3 +42,5 @@ NODE_SPEED = 1 #meters per second
 #current cloud A gateway
 GATEWAY_ROW = -1
 GATEWAY_COL = -1
+
+RESULTS_FILE_NAME = 'simulation results.txt'
