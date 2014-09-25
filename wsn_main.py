@@ -109,7 +109,7 @@ def wsn_main():
             events.propagate_new_gateway()
 
         if global_vars.EVENT_LIST[0][0] == 9:
-            pass
+            events.forward_payload()
 
         if global_vars.EVENT_LIST[0][0] == 10:
             #terminate

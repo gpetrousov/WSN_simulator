@@ -14,7 +14,7 @@ import random
 6 = Presence entry 
 7 = node takes a step
 8 = propagate the new gateway of cloud A
-9 = xxxxxxxxxxxxxxxxxxxxx
+9 = forward payload
 10 = Termination event
 """
 
@@ -143,6 +143,11 @@ def send_payload():
         parent_mote_row = int( global_vars.MOTES_ARRAY[origin_mote_row][origin_mote_col].parent.split(';')[1] )
         parent_mote_col = int( global_vars.MOTES_ARRAY[origin_mote_row][origin_mote_col].parent.split(';')[2] )
         global_vars.MOTES_ARRAY[parent_mote_row][parent_mote_col].packets_received += 1
+
+        #schedule packet forwarding
+        global_vars.EVENT_LIST[0].append(9)
+        global_vars.EVENT_LIST[1].append(current_time + functions.calculate_transmission_delay(4))
+        global_vars.EVENT_LIST[2].append(global_vars.MOTES_ARRAY[parent_mote_row][parent_mote_col].moteID)
     elif global_vars.MOTES_ARRAY[origin_mote_row][origin_mote_col].gateway == True:
         #mote is the gateway of cloud A
         global_vars.NODES_ARRAY[0].packets_received += 1 #send packet to node directly
@@ -366,6 +371,45 @@ def node_step():
     return
 
 
+#######
+#     #
+#     #
+#     #
+#######
+      #
+      #
+      #
+#######
+def forward_payload():
+    current_time  = global_vars.EVENT_LIST[1][0]
+    try:
+        if (current_time + global_vars.CCA_TIME) > global_vars.CHANNEL_ARRAY[0].release_time:
+            #channel is released by that time
+            #mote takes the channel
+            #Updates the channel release time according to the time it takes to transmit 4 Bytes
+            global_vars.CHANNEL_ARRAY[0].release_time = current_time + global_vars.CCA_TIME + functions.calculate_transmission_delay(4)
+            #add packet sent by child
+            origin_mote_row = int( global_vars.EVENT_LIST[2][0].split(';')[1] )
+            origin_mote_col = int( global_vars.EVENT_LIST[2][0].split(';')[2] ) 
+            global_vars.MOTES_ARRAY[ origin_mote_row ][ origin_mote_col ].packets_sent += 1
+            #add packet received to parent
+            parent_mote_row = int( global_vars.MOTES_ARRAY[origin_mote_row][origin_mote_col].parent.split(';')[1] )
+            parent_mote_col = int( global_vars.MOTES_ARRAY[origin_mote_row][origin_mote_col].parent.split(';')[2] )
+            global_vars.MOTES_ARRAY[ parent_mote_row ][ parent_mote_col ].packets_received += 1
+
+        else:
+            #channel will not be free
+            #schedule cca again after random time
+            global_vars.EVENT_LIST[0].append(9)
+            global_vars.EVENT_LIST[1].append(current_time + global_vars.CCA_TIME) #reschedule after you perform CCA
+            global_vars.EVENT_LIST[2].append(global_vars.EVENT_LIST[2][0])
+    except:
+        #in case the parent is the node
+        #maybe I have not seen this happening
+        #temporary fix
+        pass
+
+    return
 
 ######
 #    #
