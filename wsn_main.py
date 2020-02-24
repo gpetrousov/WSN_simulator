@@ -58,7 +58,6 @@ def wsn_main():
         for x in global_vars.EVENT_LIST:
             del x[0]
         #sort the the event list
-        #dont fucking worry about the simulation time now
         global_vars.EVENT_LIST = functions.sortrows(global_vars.EVENT_LIST, 1)
         #global_vars.EVENT_LIST[0] = list(global_vars.EVENT_LIST[0])
         #global_vars.EVENT_LIST[1] = list(global_vars.EVENT_LIST[1])
@@ -119,7 +118,6 @@ def wsn_main():
         for x in global_vars.EVENT_LIST:
             del x[0]
         #sort the the event list
-        #dont fucking worry about the simulation time now
         global_vars.EVENT_LIST = functions.sortrows(global_vars.EVENT_LIST, 1)
 
     #pass
